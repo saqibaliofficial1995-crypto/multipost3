@@ -1,4 +1,9 @@
 {
-  "items": {},
-  "history": []
+  "history": [],
+  "items": {
+    "1uVtnFjJsCKG2GIHv4n9i-L7R0JeC7R6n": {
+      "attempts": 1,
+      "last_error": "Publishing blocked: text_ai_gemini not allowed for live publish"
+    }
+  }
 }
