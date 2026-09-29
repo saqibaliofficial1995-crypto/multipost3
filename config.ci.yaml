@@ -1,0 +1,34 @@
+paths:
+  state: state/uploaded.json
+  log: state/run.log
+  work: work
+drive:
+  inbox_folder_id: ""
+platforms:
+  youtube: true
+  instagram: false
+youtube:
+  privacy_status: public
+  made_for_kids: false
+  category_id: "22"
+  default_tags:
+    - shorts
+    - viral
+instagram:
+  enabled: false
+  upload_prefix: multipost/vertical
+encode:
+  enabled: true
+  width: 1080
+  height: 1920
+  fps: 30
+  max_seconds: 180
+  video_bitrate: 6M
+  audio_bitrate: 128k
+schedule:
+  max_videos_per_run: 1
+  max_attempts: 3
+metadata:
+  fallback_hashtags: "#shorts #reels #viral"
+  append_hashtags_to_description: true
+  channel_topic: ""

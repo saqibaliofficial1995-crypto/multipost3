@@ -1,0 +1,21 @@
+# Credentials and tokens
+tokens/
+*.json
+!config*.json
+!state/uploaded.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Work files
+work/
+state/run.log
