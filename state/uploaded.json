@@ -1,9 +1,26 @@
 {
-  "history": [],
+  "history": [
+    {
+      "drive_file_id": "1uVtnFjJsCKG2GIHv4n9i-L7R0JeC7R6n",
+      "filename": "MUKBANG DOG USA1 (1).mp4",
+      "instagram_id": null,
+      "instagram_permalink": "",
+      "title": "Dog ASMR: Black Lab eats custom meal with egg and meat",
+      "uploaded_at_utc": "2026-09-29T06:35:18.836439+00:00Z",
+      "youtube_url": "https://www.youtube.com/watch?v=8Ogqw7_i0qk",
+      "youtube_video_id": "8Ogqw7_i0qk"
+    }
+  ],
   "items": {
     "1uVtnFjJsCKG2GIHv4n9i-L7R0JeC7R6n": {
-      "attempts": 1,
-      "last_error": "Publishing blocked: text_ai_gemini not allowed for live publish"
+      "drive_file_id": "1uVtnFjJsCKG2GIHv4n9i-L7R0JeC7R6n",
+      "filename": "MUKBANG DOG USA1 (1).mp4",
+      "instagram_id": null,
+      "instagram_permalink": "",
+      "title": "Dog ASMR: Black Lab eats custom meal with egg and meat",
+      "uploaded_at_utc": "2026-09-29T06:35:18.836439+00:00Z",
+      "youtube_url": "https://www.youtube.com/watch?v=8Ogqw7_i0qk",
+      "youtube_video_id": "8Ogqw7_i0qk"
     }
   }
 }
