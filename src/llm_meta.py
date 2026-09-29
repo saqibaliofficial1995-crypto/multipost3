@@ -39,9 +39,14 @@ UPLOAD_API = "https://generativelanguage.googleapis.com/upload/v1beta/files"
 
 
 def clean_text(text):
-    """Removes excessive emoji-spam and shouty ALL CAPS."""
+    """Removes excessive emoji-spam, shouty ALL CAPS, and any markdown code-fence remnants."""
     if not text:
         return ""
+    text = str(text).strip()
+    # Strip markdown fences and language specifiers at start and end
+    text = re.sub(r"^```(?:text|markdown|json|plain|txt)?\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s*```$", "", text)
+    text = re.sub(r"^(?:text|description|title)\s*:\s*", "", text, flags=re.IGNORECASE)
     # Strip excessive consecutive emojis (limit to max 1)
     text = re.sub(r"([\U00010000-\U0010ffff\u2600-\u27bf]){2,}", r"\1", text)
     # If text is predominantly ALL CAPS (and > 10 chars), convert to capitalized sentence
@@ -106,6 +111,7 @@ def validate_metadata(data, duration=0, channel_topic="", is_text_only=False):
 
     # Description lines processing: 2 to 5 lines with hook in first 2 lines
     desc_lines = [clean_text(l) for l in raw_desc.splitlines() if l.strip()]
+    desc_lines = [l for l in desc_lines if l and l.lower() != "text" and not l.lower().startswith("text:")]
     if len(desc_lines) == 1:
         # Split sentences to produce multi-line hook & supporting lines
         sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", desc_lines[0]) if s.strip()]
@@ -209,9 +215,11 @@ def discover_models(api_key):
     preferred = [
         "gemini-flash-lite-latest",
         "gemini-flash-latest",
+        "gemini-3.1-flash-lite",
+        "gemini-3-flash-preview",
+        "gemini-3.1-flash-lite-preview",
         "gemini-3.5-flash",
         "gemini-3.6-flash",
-        "gemini-3.1-flash-lite",
         "gemini-2.0-flash",
         "gemini-1.5-flash",
     ]
@@ -389,8 +397,8 @@ Output MUST be raw valid JSON adhering strictly to this schema:
             }
         }
 
-        max_attempts = 4
-        backoff_delays = [2, 4, 8, 16]
+        max_attempts = 6
+        backoff_delays = [2, 4, 6, 8, 12, 16]
         model_idx = 0
         consecutive_503 = 0
 
@@ -438,7 +446,7 @@ Output MUST be raw valid JSON adhering strictly to this schema:
                     model_idx += 1
             elif status_code == 503:
                 consecutive_503 += 1
-                print(f"[llm_meta] Attempt {attempt}/{max_attempts} returned 503 Service Unavailable ({consecutive_503} in a row).")
+                print(f"[llm_meta] Attempt {attempt}/{max_attempts} returned 503 Service Unavailable ({consecutive_503} in a row): {resp_text[:250]}")
                 if consecutive_503 >= 1 and len(candidate_models) > 1:
                     model_idx += 1
                     next_model = candidate_models[model_idx % len(candidate_models)]

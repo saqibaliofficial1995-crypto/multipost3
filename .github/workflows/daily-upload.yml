@@ -47,10 +47,6 @@ jobs:
       - name: Install Python deps
         run: pip install -r requirements.txt
 
-      - name: Diagnose Gemini API Key
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python scripts/diagnose_gemini.py
 
       - name: Run uploader
         env:
