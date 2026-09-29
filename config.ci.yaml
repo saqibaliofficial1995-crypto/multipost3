@@ -3,7 +3,7 @@ paths:
   log: state/run.log
   work: work
 drive:
-  inbox_folder_id: 1KdYpuJLb0xgGIEcmmettHRdURN-6oQk6
+  inbox_folder_id: 1GzWZvI1tOfPnm7w95RBPmTsXf2wPCidW
 platforms:
   youtube: true
   instagram: false
