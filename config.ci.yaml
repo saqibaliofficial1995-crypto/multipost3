@@ -3,17 +3,17 @@ paths:
   log: state/run.log
   work: work
 drive:
-  inbox_folder_id: ""
+  inbox_folder_id: 1KdYpuJLb0xgGIEcmmettHRdURN-6oQk6
 platforms:
   youtube: true
   instagram: false
 youtube:
   privacy_status: public
   made_for_kids: false
-  category_id: "22"
+  category_id: '22'
   default_tags:
-    - shorts
-    - viral
+  - shorts
+  - viral
 instagram:
   enabled: false
   upload_prefix: multipost/vertical
@@ -29,6 +29,6 @@ schedule:
   max_videos_per_run: 1
   max_attempts: 3
 metadata:
-  fallback_hashtags: "#shorts #reels #viral"
+  fallback_hashtags: '#shorts #reels #viral'
   append_hashtags_to_description: true
-  channel_topic: ""
+  channel_topic: ''
