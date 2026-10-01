@@ -2,8 +2,10 @@ name: Daily Multipost Upload Channel 3
 
 on:
   schedule:
-    # Staggered 5 runs/day for Channel 3 (UTC 6:45, 9:45, 12:45, 15:45, 18:45)
-    - cron: "45 6,9,12,15,18 * * *"
+    # Staggered 3 runs/day for Channel 3 (PKT ~ 11:45 AM, 5:45 PM, 11:45 PM)
+    - cron: "45 6 * * *"
+    - cron: "45 12 * * *"
+    - cron: "45 18 * * *"
   workflow_dispatch:
     inputs:
       max_uploads:
