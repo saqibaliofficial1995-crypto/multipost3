@@ -10,10 +10,16 @@ platforms:
 youtube:
   privacy_status: public
   made_for_kids: false
-  category_id: '22'
+  category_id: '15'
   default_tags:
   - shorts
-  - viral
+  - dogasmr
+  - dogmukbang
+  - dogeating
+  - satisfying
+  - asmr
+  - labrador
+  - pets
 instagram:
   enabled: false
   upload_prefix: multipost/vertical
@@ -29,6 +35,7 @@ schedule:
   max_videos_per_run: 1
   max_attempts: 3
 metadata:
-  fallback_hashtags: '#shorts #reels #viral'
+  fallback_hashtags: '#shorts #dogasmr #mukbang'
   append_hashtags_to_description: true
-  channel_topic: ''
+  channel_topic: 'Dog ASMR Mukbang Eating'
+  default_description: "Satisfying Dog ASMR Mukbang! Watch our Labrador enjoy delicious meals with crunchy, relaxing eating sounds. Don't forget to like & subscribe for daily pet ASMR!"

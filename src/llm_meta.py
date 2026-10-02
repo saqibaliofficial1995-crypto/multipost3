@@ -70,10 +70,15 @@ def validate_metadata(data, duration=0, channel_topic="", is_text_only=False):
     tags = data.get("tags", [])
     hashtags = data.get("hashtags", [])
 
-    # Title must be under 60 characters and non-empty
-    if not title or len(title) >= 60:
+    # Title must be under 85 characters and non-empty (leaves room for hook + emoji + #shorts)
+    if not title or len(title) > 85:
         print(f"[llm_meta] Validation reject: Title length invalid ({len(title)} chars): '{title}'")
         return None
+
+    # For shorts, ensure #shorts is appended to title if space allows
+    if duration <= 180 and "#shorts" not in title.lower():
+        if len(title) + 8 <= 85:
+            title = f"{title} #shorts"
 
     # ANTI-HALLUCINATION RULE 1: Reject any title containing currency symbols or codes
     # ($, €, £, ¥, ₹, USD, AED, EUR, GBP, etc.)
@@ -118,9 +123,9 @@ def validate_metadata(data, duration=0, channel_topic="", is_text_only=False):
         if len(sentences) >= 2:
             desc_lines = sentences
         elif len(sentences) == 1:
-            desc_lines = [sentences[0], f"Exclusive {channel_topic or 'luxury'} highlights."]
+            desc_lines = [sentences[0], f"Satisfying {channel_topic or 'dog mukbang ASMR'} crunches!"]
     elif len(desc_lines) == 0:
-        desc_lines = [f"Experience the finest {channel_topic or 'luxury lifestyle'}.", f"Subscribe for daily updates."]
+        desc_lines = [f"Enjoy relaxing {channel_topic or 'dog ASMR mukbang'} sounds.", f"Subscribe for daily satisfying pet videos!"]
 
     if len(desc_lines) > 5:
         desc_lines = desc_lines[:5]
@@ -148,8 +153,8 @@ def validate_metadata(data, duration=0, channel_topic="", is_text_only=False):
     # Ensure 10 to 15 tags by supplementing from niche pool
     if len(clean_tags) < 10:
         base_pool = [
-            "luxury", "lifestyle", "dubai", "millionaire", "billionaire",
-            "supercars", "mansion", "wealth", "aesthetic", "vip", "exclusive", "rich", "viral"
+            "dogasmr", "dogmukbang", "dogeating", "asmrsounds", "satisfying",
+            "labrador", "cutedog", "asmrfood", "crunchysounds", "doglover", "pets", "viral", "shorts"
         ]
         if channel_topic:
             for w in channel_topic.split():
@@ -361,24 +366,25 @@ def generate_from_video(video_path, duration, channel_topic, api_key, candidate_
         remote_name, remote_uri = upload_video_to_gemini(video_path, api_key)
         print(f"[llm_meta] Video uploaded and ACTIVE ({remote_name}). Analyzing content...")
 
-        prompt = f"""You are an elite YouTube SEO metadata specialist.
+        prompt = f"""You are an elite YouTube Shorts growth & viral SEO specialist.
 Analyze this video carefully.
 Channel topic / niche: '{channel_topic}'.
 Video duration: {duration} seconds.
 
-CRITICAL TRUTHFULNESS & ANTI-HALLUCINATION RULES:
-- Describe ONLY what is ACTUALLY and DIRECTLY visible in the video scenes.
-- NEVER estimate, invent, or guess a price, valuation, or cost (NEVER use '$', 'million', 'billion', 'AED', or price figures like '$50M').
-- NEVER invent square footage, acreage, or architectural specs not visibly shown on screen.
-- NEVER claim specific brand names or unverified private locations unless clearly readable on screen.
-- Ground the title, description, and tags entirely in the genuine visual content (architecture, interior design style, materials, lighting, ambiance, observable actions).
+VIRAL SHORTS CRITICAL RULES:
+- Focus on what the dog/pet is eating, the ASMR sounds, crunchy textures, and cute/satisfying reactions.
+- Write a high-CTR, curiosity-driven title mentioning food items (e.g. steak, egg, fish, salmon, crunch, sound ON, satisfying).
+- Use 1-2 relevant emojis (🥩, 🍖, 🐶, 🐾, 🤤, 🎧) to grab visual attention on mobile Shorts feeds.
+- Title MUST be under 75 characters so '#shorts' can easily fit.
+- NO ALL CAPS yelling, NO fake claims or prices.
+- Ground the description in the visible food and relaxing ASMR eating experience.
 
 Output MUST be raw valid JSON adhering strictly to this schema:
 {{
-  "title": "Engaging, authentic title UNDER 60 characters with the primary keyword near the beginning describing the visible scene. No clickbait padding, no currency/price claims, and no ALL CAPS.",
-  "description": "3 to 5 lines total. The first 2 lines must carry a compelling hook visible before 'more' describing the authentic visuals. Followed by natural sentences with high-ranking keywords.",
-  "tags": ["10 to 15 tag keywords mixing broad and specific, total under 450 characters"],
-  "hashtags": ["Three relevant hashtags without '#', exactly 3 items"]
+  "title": "Exciting, high-CTR hook title UNDER 75 characters (e.g., 'Dog ASMR: Crunchy Steak & Egg Feast! 🥩🐶')",
+  "description": "3 to 4 lines total. First line is an engaging hook about the delicious meal/crunch. Followed by a warm call to subscribe for daily satisfying dog ASMR.",
+  "tags": ["10 to 15 targeted keywords like dogasmr, dogmukbang, labrador, asmr, satisfying, dogeating, pets"],
+  "hashtags": ["shorts", "dogasmr", "mukbang"]
 }}
 """
 
@@ -536,27 +542,27 @@ def fallback_metadata(duration=0, channel_topic="", default_desc="", default_tag
     """Safe fallback based on channel topic and configuration defaults.
     
     Guarantees:
-    - title under 60 chars
+    - title under 75 chars with #shorts
     - description with hook and 3 hashtags
     - exactly 10 to 15 tags, total under 460 chars
     """
-    topic = channel_topic or "Dubai luxury lifestyle"
-    title = f"{topic} Highlights"[:59]
+    topic = channel_topic or "Dog ASMR Mukbang Eating"
+    title = f"{topic} #shorts"[:75]
 
     # Curate high-relevance tags for channel niche
     base_tags = [
-        "luxury", "lifestyle", "dubai", "millionaire", "billionaire",
-        "supercars", "mansion", "wealth", "aesthetic", "vip", "exclusive", "rich"
+        "dogasmr", "dogmukbang", "dogeating", "asmrsounds", "satisfying",
+        "labrador", "cutedog", "asmrfood", "crunchysounds", "doglover", "pets", "shorts"
     ]
     tags = list(default_tags) if default_tags else []
     for t in base_tags:
         if t not in tags:
             tags.append(t)
-    if duration <= 60 and "shorts" not in [t.lower() for t in tags]:
+    if duration <= 180 and "shorts" not in [t.lower() for t in tags]:
         tags.insert(0, "shorts")
 
     # Pad to at least 10 tags if needed
-    padding = ["trending", "viral", "inspiration", "goals", "success"]
+    padding = ["trending", "viral", "asmr", "satisfyingmukbang", "doglove"]
     for p in padding:
         if len(tags) >= 10:
             break
@@ -570,8 +576,8 @@ def fallback_metadata(duration=0, channel_topic="", default_desc="", default_tag
     while tags and len(",".join(tags)) >= 460:
         tags.pop()
 
-    hashtags = ["#shorts", "#luxury", "#lifestyle"]
-    desc = default_desc or f"Experience the finest {topic.lower()}.\nFollow for daily luxury updates.\nExclusive highlights."
+    hashtags = ["#shorts", "#dogasmr", "#mukbang"]
+    desc = default_desc or f"Satisfying {topic.lower()} sounds!\nWatch our happy dog enjoy delicious meals.\nSubscribe for daily relaxing pet ASMR."
     desc = f"{desc}\n\n{' '.join(hashtags)}"
 
     return {
@@ -696,10 +702,10 @@ def infer_topic_from_video(video_path, api_key=None):
 
         prompt = (
             "You are an expert YouTube content analyst.\n"
-            "WATCH THIS VIDEO CAREFULLY. Observe the visual scenes, techniques, actions, and objects depicted in the video.\n"
+            "WATCH THIS VIDEO CAREFULLY. Observe the visual scenes, actions, subject (dog eating food), and ambiance.\n"
             "Identify the exact niche or overarching topic of this channel/content in 2 to 4 words "
-            "(for example: 'Cake Decorating', 'Baking Tutorials', 'Dubai Luxury Real Estate', 'Guitar Lessons').\n"
-            "DO NOT use filenames, numbers, or words like 'Generated' or 'Video'. Focus strictly on what is visually shown.\n"
+            "(for example: 'Dog ASMR Mukbang', 'Pet Food ASMR', 'Dog Eating Treats', 'Satisfying ASMR Mukbang').\n"
+            "DO NOT use filenames, numbers, or generic words. Focus strictly on what is visually shown.\n"
             "Return ONLY a JSON object:\n"
             '{"channel_topic": "..."}\n'
             "No markdown fences, no extra text."
@@ -741,11 +747,11 @@ def infer_topic_from_video(video_path, api_key=None):
             print(f"[llm_meta] Cleaning up Gemini topic analysis file: {remote_name}")
             delete_gemini_file(remote_name, key)
 
-    return "Cake Decorating"
+    return "Dog ASMR Mukbang"
 
 
 def infer_channel_topic(sample_items, api_key=None, video_path=None):
     """Backwards-compatible wrapper that watches video if available."""
     if video_path and os.path.exists(video_path):
         return infer_topic_from_video(video_path, api_key)
-    return "Cake Decorating"
+    return "Dog ASMR Mukbang"
