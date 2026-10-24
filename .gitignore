@@ -19,3 +19,5 @@ ENV/
 # Work files
 work/
 state/run.log
+
+*.env
