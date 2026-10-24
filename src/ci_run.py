@@ -343,7 +343,7 @@ def run(cfg, max_uploads=1, dry_run=False, channel=None, config_path=None):
             log.write(f"[ig] Already published to Instagram ({ig_permalink}). Skipping.")
         elif upload_instagram_ci.is_available(cfg):
             media_token = os.environ.get("MEDIA_REPO_TOKEN") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-            media_owner = os.environ.get("MEDIA_REPO_OWNER") or os.environ.get("GITHUB_REPOSITORY_OWNER") or "bjviufutu-dot"
+            media_owner = os.environ.get("MEDIA_REPO_OWNER") or os.environ.get("GITHUB_REPOSITORY_OWNER") or "saqibaliofficial1995-crypto"
             media_repo = os.environ.get("MEDIA_REPO", "multipost-media")
 
             public_url = None

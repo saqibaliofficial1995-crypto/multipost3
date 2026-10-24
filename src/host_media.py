@@ -13,7 +13,7 @@ import requests
 
 def _get_credentials(token=None, owner=None, repo=None):
     t = token or os.environ.get("MEDIA_REPO_TOKEN") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    o = owner or os.environ.get("MEDIA_REPO_OWNER") or os.environ.get("GITHUB_REPOSITORY_OWNER") or "bjviufutu-dot"
+    o = owner or os.environ.get("MEDIA_REPO_OWNER") or os.environ.get("GITHUB_REPOSITORY_OWNER") or "saqibaliofficial1995-crypto"
     r = repo or os.environ.get("MEDIA_REPO", "multipost-media")
     return t, o, r
 

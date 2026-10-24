@@ -77,7 +77,7 @@ def refresh_long_lived_token(token):
 
             # If running in environment with GitHub CLI secret update permission, update secret
             gh_token = os.environ.get("MEDIA_REPO_TOKEN") or os.environ.get("GH_TOKEN")
-            repo = os.environ.get("GITHUB_REPOSITORY") or "bjviufutu-dot/multipost"
+            repo = os.environ.get("GITHUB_REPOSITORY") or "saqibaliofficial1995-crypto/multipost"
             if gh_token and new_token != token:
                 try:
                     subprocess.run(
