@@ -64,8 +64,8 @@ jobs:
       - name: Commit state
         if: always()
         run: |
-          git config user.name "galopalam-del"
-          git config user.email "galopalam@gmail.com"
+          git config user.name "saqibaliofficial1995-crypto"
+          git config user.email "saqibaliofficial1995@gmail.com"
           git add -A state/ config.ci.yaml || true
           if git diff --staged --quiet; then
             echo "koi state change nahi"
