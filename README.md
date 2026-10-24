@@ -6,8 +6,8 @@ Standalone automated pipeline for scheduled YouTube Shorts publishing from Googl
 - **Owning Google Account:** `galopalam@gmail.com`
 - **YouTube Channel ID:** `UC9MM67B95X6B0fjhMzcixBw`
 - **GCP Project:** `yt-multipost-channel3`
-- **GitHub Account:** `galopalam-del`
-- **Domain:** `https://galopalam-del.github.io/`
+- **GitHub Account:** `saqibaliofficial1995-crypto`
+- **Domain:** `https://saqibaliofficial1995-crypto.github.io/`
 
 ## Daily Operation
 - Videos staged in Google Drive Inbox.

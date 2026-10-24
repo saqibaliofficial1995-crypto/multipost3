@@ -747,6 +747,7 @@ def infer_topic_from_video(video_path, api_key=None):
             print(f"[llm_meta] Cleaning up Gemini topic analysis file: {remote_name}")
             delete_gemini_file(remote_name, key)
 
+    print("[meta] topic fallback used", flush=True)
     return "Dog ASMR Mukbang"
 
 
@@ -754,4 +755,5 @@ def infer_channel_topic(sample_items, api_key=None, video_path=None):
     """Backwards-compatible wrapper that watches video if available."""
     if video_path and os.path.exists(video_path):
         return infer_topic_from_video(video_path, api_key)
+    print("[meta] topic fallback used", flush=True)
     return "Dog ASMR Mukbang"

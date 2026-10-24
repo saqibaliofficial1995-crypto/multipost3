@@ -43,7 +43,26 @@ def upload(cfg, video_path, title, description, tags):
             if status:
                 print(f"[yt] {int(status.progress() * 100)}%", flush=True)
         except HttpError as e:
-            if e.resp.status in RETRIABLE:
+            if (e.resp.status == 409) or "alreadyExists" in str(e):
+                print(f"[yt] 409 alreadyExists encountered ({e}). Searching uploads playlist UU9MM67B95X6B0fjhMzcixBw...", flush=True)
+                try:
+                    plist = youtube.playlistItems().list(
+                        playlistId="UU9MM67B95X6B0fjhMzcixBw",
+                        part="snippet",
+                        maxResults=20
+                    ).execute()
+                    for item in plist.get("items", []):
+                        snip = item.get("snippet", {})
+                        p_title = snip.get("title", "").strip()
+                        if p_title == title.strip() or title.strip().lower() in p_title.lower() or p_title.lower() in title.strip().lower():
+                            vid_id = snip.get("resourceId", {}).get("videoId")
+                            if vid_id:
+                                print(f"[yt] Matched existing video ID: {vid_id}", flush=True)
+                                return vid_id, "https://www.youtube.com/watch?v=" + vid_id
+                except Exception as pe:
+                    print(f"[yt] playlist query error: {pe}", flush=True)
+                raise
+            elif e.resp.status in RETRIABLE:
                 error = e
             else:
                 raise
