@@ -83,7 +83,7 @@
   ],
   "items": {
     "1-QOwfbUCgjx5AQoSAKJ0ptemeqk9LQbo": {
-      "attempts": 1,
+      "attempts": 2,
       "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
     },
     "17lc11Jgo-MnA-WUAwYnDQoGRs-1HH2pW": {
