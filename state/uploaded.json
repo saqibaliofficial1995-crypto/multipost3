@@ -177,6 +177,10 @@
       "uploaded_at_utc": "2026-09-29T06:35:18.836439+00:00Z",
       "youtube_url": "https://www.youtube.com/watch?v=8Ogqw7_i0qk",
       "youtube_video_id": "8Ogqw7_i0qk"
+    },
+    "1vC2iUGCJqAIb_0tFMK1_WZH02XJFgQo9": {
+      "attempts": 1,
+      "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
     }
   }
 }
