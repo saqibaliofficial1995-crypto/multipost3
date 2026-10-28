@@ -184,6 +184,10 @@
       "attempts": 1,
       "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
     },
+    "1mMo6qCAPRYbEQWP7rQPmQiLlgoTkTBh9": {
+      "attempts": 1,
+      "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
+    },
     "1mZgPkfbfxtPrucQ8KphU4hE-1-KnZI7P": {
       "attempts": 2,
       "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
