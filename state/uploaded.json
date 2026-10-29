@@ -134,6 +134,10 @@
       "youtube_url": "https://www.youtube.com/watch?v=65uVvZmIxVo",
       "youtube_video_id": "65uVvZmIxVo"
     },
+    "1Txl_02xAD7G681eCOaB5b7ZghT5hy-SV": {
+      "attempts": 1,
+      "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
+    },
     "1Vm2D3jEj_cufjexr8fFwXIwhFLv7ss_a": {
       "attempts": 1,
       "last_error": "Publishing blocked: topic_default_fallback not allowed for live publish"
